@@ -29,8 +29,11 @@ const AddRow = ({addRows,rowId}) => {
     }
 
   }
+  // we are forming a object to send data
   const onTextChange = (e) =>{
-    
+    console.log(e);
+    data.filter(entry => entry.id === )
+
   }
   return (
     <TableRow>
@@ -45,6 +48,7 @@ const AddRow = ({addRows,rowId}) => {
         className={classes.textfield}
             inputProps={{style: {height:30,padding: '0 5px'}}}
             onChange={(e) => onTextChange(e)}
+            name="key"
         />
       </TableCell>
       <TableCell className={classes.tablecell}>
@@ -52,6 +56,7 @@ const AddRow = ({addRows,rowId}) => {
         className={classes.textfield}
             inputProps={{style: {height:30,padding: '0 5px'}}}
             onChange={(e) => onTextChange(e)}
+            name="value"
         />
       </TableCell>
     </TableRow>

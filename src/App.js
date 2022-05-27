@@ -1,6 +1,7 @@
 
 import './App.css';
 import Home from './components/Home';
+import DataProvider from './context/Dataprovider';
 
 function App() {
   
@@ -8,10 +9,9 @@ function App() {
 
   return (
    
-      <div className="App">
-      <h1>Hello </h1>
-      <Home />
-      </div>
+      <DataProvider >
+        <Home />
+      </DataProvider>
   
 
   );

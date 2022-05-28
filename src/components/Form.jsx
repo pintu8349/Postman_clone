@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Form() {
+const Form =({onSendClick })=> {
   const classes = useStyles();
   const { formData, setFormData } = useContext(DataContext);
   const handleChange = (e) => {
@@ -51,7 +51,7 @@ function Form() {
       <TextField size="small" className={classes.Textfield}
       onChange={(e) => onUrlChange(e)}
        />
-      <Button className={classes.button} variant="contained">
+      <Button className={classes.button} variant="contained" onClick={()=> onSendClick()}>
         Send
       </Button>
     </Box>

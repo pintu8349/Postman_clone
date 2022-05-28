@@ -14,26 +14,50 @@ const useStyles = makeStyles({
     padding: ["2px 5px", "!important"],
   },
 });
-const AddRow = ({addRows,rowId}) => {
+const AddRow = ({addRows,rowId,data,setData}) => {
   const classes = useStyles();
   const [checkCheckbox,setCheckCheckbox]=useState(false);
   const handleChange = (e) =>{
+    let result = data.filter(entry => entry.id ===Number(e.target.name ))[0];
     if(!checkCheckbox){
       setCheckCheckbox(true);
       addRows(oldArr => [...oldArr,rowId ])
-
+      result ={...result,check: true};
     }
     else {
       setCheckCheckbox(false);
-
+      result ={...result,check: false};
     }
 
+    let index = data.findIndex(value => value.id === Number(e.target.name));
+
+    if(index === -1){
+      setData(oldArr => [...oldArr,result]);
+    }
+    else{
+      const newArray = Object.assign([...data],{
+        [index]: result
+      })
+      setData(newArray);
+    }
   }
   // we are forming a object to send data
   const onTextChange = (e) =>{
     console.log(e);
-    data.filter(entry => entry.id === )
+    let result = data.filter(entry => entry.id ===rowId )[0];
+    result= {...result, id:rowId,[e.target.name]: e.target.value};
+    let index = data.findIndex(value => value.id === rowId);
 
+    if(index === -1){
+      setData(oldArr => [...oldArr,result]);
+    }
+    else{
+      const newArray = Object.assign([...data],{
+        [index]: result
+      })
+      setData(newArray);
+    }
+      console.log(data);
   }
   return (
     <TableRow>
@@ -41,7 +65,9 @@ const AddRow = ({addRows,rowId}) => {
         <Checkbox 
         checked={checkCheckbox}
         size="large" className={classes.checkbox}
-        onChange={(e) => handleChange(e)} />
+        onChange={(e) => handleChange(e)} 
+          name={rowId}
+        />
       </TableCell>
       <TableCell className={classes.tablecell}>
         <TextField 

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext ,useState } from "react";
 import Form from "./Form";
 import Header from "./Header";
 import { Box } from "@mui/material";
@@ -18,6 +18,8 @@ const useStyles = makeStyles({
 
 const Home = ()=> {
     const classes = useStyles();
+    const [error,setError] =useState(false);
+    const [errorMsg,setErrorMsg]=useState('');
     const {formData ,jsonText,paramData,headerData} =useContext(DataContext);
     const onSendClick =() => {
         if(checkParams(formData ,jsonText,paramData,headerData)){

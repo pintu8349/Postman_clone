@@ -6,7 +6,9 @@ import { makeStyles } from "@mui/styles";
 import SelectTab from "./SelectTab";
 import Response from "./Response";
 import ErrorScreen from "./ErrorScreen";
+import SnackBar from "./SnackBar"
 import {DataContext} from '../context/Dataprovider';
+import {getData} from '../service/api'
 
 import {checkParams} from '../utils/common-utils'
 const useStyles = makeStyles({
@@ -21,11 +23,12 @@ const Home = ()=> {
     const [error,setError] =useState(false);
     const [errorMsg,setErrorMsg]=useState('');
     const {formData ,jsonText,paramData,headerData} =useContext(DataContext);
-    const onSendClick =() => {
-        if(checkParams(formData ,jsonText,paramData,headerData)){
+    const onSendClick =async () => {
+        if(!checkParams(formData ,jsonText,paramData,headerData,setErrorMsg)){
+            setError(true);
             return false;
         }
-
+        let response= await getData(formData ,jsonText,paramData,headerData);
     }
     return (
         <>
@@ -35,6 +38,7 @@ const Home = ()=> {
             <SelectTab />
             {/* <Response /> */}
             <ErrorScreen />
+            {error && <SnackBar error={error} setError={setError} errorMsg={errorMsg}  />}
         </Box>
        
         </>
